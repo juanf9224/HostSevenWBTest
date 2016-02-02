@@ -118,23 +118,23 @@ public class Main2Activity extends AppCompatActivity {
                 arrLength = obj.getJSONArray("responseObject").length();
                 Log.d("Array postExecute", "*************************************" + arrLength);
                 //Buttons dynamically created
-                Button[] day = new Button[arrLength-1];
-                for(int i=1; i <= day.length; i++){
+                for(int i=1; i <= arrLength; i++){
                     LinearLayout ll = (LinearLayout)findViewById(R.id.partners_buttons);
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-                    day[i].setId(i);
-                    final int id_ = day[i].getId();
-                    day[i].setText("Día " + id_);
-                    day[i].setBackgroundResource(R.drawable.button_partner_shape);
-                    ll.addView(day[i], lp);
-                    day[i].setOnClickListener(new View.OnClickListener() {
+                    Button day = new Button(Main2Activity.this);
+                    day.setId(10 + i);
+                    final int id_ = day.getId();
+                    day.setText("Día " + id_);
+                    day.setBackgroundResource(R.drawable.button_partner_shape);
+                    day.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
                             Toast.makeText(view.getContext(),
                                     "Button clicked index = " + id_, Toast.LENGTH_SHORT)
                                     .show();
                         }
                     });
+                    ll.addView(day, lp);
                 }
 
             }catch(JSONException jse){
