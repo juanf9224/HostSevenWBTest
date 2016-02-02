@@ -4,6 +4,8 @@ import android.accounts.NetworkErrorException;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -13,7 +15,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +40,7 @@ public class Main2Activity extends AppCompatActivity {
     TextView userId, userNum, userName;
     URL url = null;
     ProgressDialog progress;
+    int arrLength;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +53,19 @@ public class Main2Activity extends AppCompatActivity {
         userNum = (TextView)findViewById(R.id.userNum);
         userName = (TextView)findViewById(R.id.userName);
 
-        Bundle bundle = getIntent().getExtras();
-        String data = bundle.getString("userNumber");
-        String url = "http://hostseven.lq3.net:8091/VeoCRM/webservice/call_webservice.asp?VEOCIACRC=6764O1240&USERNAME=uuuu&PASSWORD=pppp&WC=DW2.2ARED.CALL&CALL=GYMPOWER&WS=GETMEMBER&PAR01=" + data;
 
+
+        Bundle bundle = getIntent().getExtras();
+        String id = bundle.getString("userId");
+        String num = bundle.getString("userNumber");
+        String name = bundle.getString("userName");
+
+        userId.setText(id);
+        userNum.setText(num);
+        userName.setText(name);
+
+        String url = "http://hostseven.lq3.net:8091/VeoCRM/webservice/call_webservice.asp?VEOCIACRC=6764O1240&USERNAME=uuuu&PASSWORD=pppp&WC=DW2.2ARED.CALL&CALL=GYMPOWER&WS=GETRUTINADAY&PAR01="+ id;
+        Log.d("url", "http://hostseven.lq3.net:8091/VeoCRM/webservice/call_webservice.asp?VEOCIACRC=6764O1240&USERNAME=uuuu&PASSWORD=pppp&WC=DW2.2ARED.CALL&CALL=GYMPOWER&WS=GETRUTINADAY&PAR01="+ id);
         ConnectivityManager connMgr = (ConnectivityManager)
         getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -64,6 +81,10 @@ public class Main2Activity extends AppCompatActivity {
         }catch(Exception e){
             e.printStackTrace();
         }
+
+        Log.d("array length", "*********************************************************************************************" + arrLength);
+
+
     }
 
     private class DownloadWebPageTask extends AsyncTask<String, Void, String>{
@@ -90,21 +111,32 @@ public class Main2Activity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             try {
 
-                Log.d("***************", "***********************************************************************"+ result);
+                Log.d("String result", "***********************************************************************" + result);
                 JSONObject obj = new JSONObject(result);
-                Log.d("***************", "***********************************************************************"+ result+obj);
+                Log.d("result+obj", "***********************************************************************"+ result+obj);
                 JSONObject response = obj.getJSONArray("responseObject").getJSONObject(0);
-                String id = response.getString("ID");
-                String num = response.getString("NumeroSocio");
-                String name = response.getString("Nombre");
-                Log.d("Data from json", "********************************************datos de json: " + id + " " + num + " " + name + "****************************************************");
-                if(id.equals("") || num.equals("") || name.equals("")){
-                    progress = ProgressDialog.show(Main2Activity.this, "Usuario no existe", "Retornando a la pantalla de busqueda", true);
-                    System.exit(0);
+                arrLength = obj.getJSONArray("responseObject").length();
+                Log.d("Array postExecute", "*************************************" + arrLength);
+
+                Button[] day = new Button[arrLength-1];
+                for(int i=1; i <= day.length; i++){
+                    LinearLayout ll = (LinearLayout)findViewById(R.id.partners_buttons);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                    day[i].setId(i);
+                    final int id_ = day[i].getId();
+                    day[i].setText("Día " + id_);
+                    day[i].setBackgroundResource(R.drawable.button_partner_shape);
+                    ll.addView(day[i], lp);
+                    day[i].setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            Toast.makeText(view.getContext(),
+                                    "Button clicked index = " + id_, Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    });
                 }
-                userId.setText(id);
-                userNum.setText(num);
-                userName.setText(name);
+
             }catch(JSONException jse){
                 jse.printStackTrace();
             }
@@ -112,6 +144,8 @@ public class Main2Activity extends AppCompatActivity {
         }
 
     }
+
+
 
     private String downloadUrl(String myurl) throws IOException {
         InputStream is = null;
