@@ -117,7 +117,7 @@ public class Main2Activity extends AppCompatActivity {
                 JSONObject response = obj.getJSONArray("responseObject").getJSONObject(0);
                 arrLength = obj.getJSONArray("responseObject").length();
                 Log.d("Array postExecute", "*************************************" + arrLength);
-
+                //Buttons dynamically created
                 Button[] day = new Button[arrLength-1];
                 for(int i=1; i <= day.length; i++){
                     LinearLayout ll = (LinearLayout)findViewById(R.id.partners_buttons);
