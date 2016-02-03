@@ -43,7 +43,8 @@
             android:layout_height="wrap_content"
             android:text="New Button"
             android:id="@+id/button5"
-            android:background="@drawable/button_partner_shape" />
+            android:background="@drawable/button_partner_shape"
+            android:textColor="#89039c" />
     </LinearLayout>
 
     <LinearLayout

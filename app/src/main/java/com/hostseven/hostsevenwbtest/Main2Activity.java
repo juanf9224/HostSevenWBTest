@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -118,23 +119,31 @@ public class Main2Activity extends AppCompatActivity {
                 arrLength = obj.getJSONArray("responseObject").length();
                 Log.d("Array postExecute", "*************************************" + arrLength);
                 //Buttons dynamically created
+                LinearLayout ll = (LinearLayout)findViewById(R.id.partners_buttons);
                 for(int i=1; i <= arrLength; i++){
-                    LinearLayout ll = (LinearLayout)findViewById(R.id.partners_buttons);
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout buttonLayout = new LinearLayout(Main2Activity.this);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.HORIZONTAL);
 
                     Button day = new Button(Main2Activity.this);
-                    day.setId(10 + i);
+                    day.setId(i);
                     final int id_ = day.getId();
-                    day.setText("Día " + id_);
+                    day.setText("Día " + i);
+                    day.setTextColor(Color.rgb(137,3,156));
                     day.setBackgroundResource(R.drawable.button_partner_shape);
+
                     day.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
-                            Toast.makeText(view.getContext(),
-                                    "Button clicked index = " + id_, Toast.LENGTH_SHORT)
-                                    .show();
+                            Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
+                            intent.putExtra("selectedDay", ""+id_);
+                            intent.putExtra("userId", userId.getText().toString());
+                            intent.putExtra("userNum", userNum.getText().toString());
+                            intent.putExtra("userName", userName.getText().toString());
+                            startActivity(intent);
+
                         }
                     });
-                    ll.addView(day, lp);
+                    ll.addView(buttonLayout);
+                    buttonLayout.addView(day, lp);
                 }
 
             }catch(JSONException jse){

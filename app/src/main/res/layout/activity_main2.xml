@@ -122,9 +122,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="&apos;Días de la rutina"
+            android:text="Días de la rutina"
             android:id="@+id/textView7"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textSize="30dp"
+            android:textColor="#29c755" />
 
     </LinearLayout>
 

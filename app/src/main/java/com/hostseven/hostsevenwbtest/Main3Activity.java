@@ -48,30 +48,31 @@ public class Main3Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
 
 
-        Bundle extra = getIntent().getBundleExtra("extra");
-        ArrayList<String> data = (ArrayList<String>) extra.getSerializable("data");
+        Bundle bundle = getIntent().getExtras();
 
         userId =(TextView)findViewById(R.id.userId);
         userNum =(TextView)findViewById(R.id.userNum);
         userName =(TextView)findViewById(R.id.userName);
 
 
+        /*ArrayList<HashMap<String, String>> mylistDef = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> mapDef = new HashMap<String, String>();
 
-        map.put("Grupo", "Grupo");
-        map.put("Ejercicio", "Ejercicio");
-        map.put("Series", "Series");
-        map.put("Repeticiones", "Repeticiones");
-        mylist.add(map);
+        mapDef.put("Grupo", "Grupo");
+        mapDef.put("Ejercicio", "Ejercicio");
+        mapDef.put("Series", "Series");
+        mapDef.put("Repeticiones", "Repeticiones");
+        mylistDef.add(map);
 
 
-        list = (ListView)findViewById(R.id.listView);
-        SimpleAdapter mAdapter1 = new SimpleAdapter(this, mylist, R.layout.row, new String[] {"Grupo", "Ejercicio", "Series", "Repeticiones"}, new int[] {R.id.routines_group, R.id.routines_exercises, R.id.routines_series, R.id.routines_repeat});
-        list.setAdapter(mAdapter1);
+        list = (ListView)findViewById(R.id.listView2);
+        SimpleAdapter mAdapter1 = new SimpleAdapter(this, mylistDef, R.layout.row, new String[] {"Grupo", "Ejercicio", "Series", "Repeticiones"}, new int[] {R.id.routines_group, R.id.routines_exercises, R.id.routines_series, R.id.routines_repeat});
+        list.setAdapter(mAdapter1);*/
 
-        userId.setText(data.get(0));
-        userNum.setText(data.get(1));
-        userName.setText(data.get(2));
-        day = data.get(3);
+        userId.setText(bundle.getString("userId"));
+        userNum.setText(bundle.getString("userNum"));
+        userName.setText(bundle.getString("userName"));
+        day = bundle.getString("selectedDay");
 
         String url = "http://hostseven.lq3.net:8091/VeoCRM/webservice/call_webservice.asp?VEOCIACRC=6764O1240&USERNAME=uuuu&PASSWORD=pppp&WC=DW2.2ARED.CALL&CALL=GYMPOWER&WS=GETRUTINA&PAR01="+userId.getText().toString()+"&PAR02="+day;
 

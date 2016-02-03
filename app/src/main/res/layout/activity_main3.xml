@@ -113,13 +113,22 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/listView2"
+            android:layout_alignBottom="@+id/listView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="174dp" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/listView"
             android:background="#fff"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="40dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="65dp"
+            android:layout_above="@+id/button2" />
 
         <Button
             android:layout_width="wrap_content"
@@ -131,6 +140,7 @@
             android:layout_alignParentEnd="true"
             android:background="@drawable/button_shape"
             android:onClick="backButton" />
+
 
     </RelativeLayout>
 
