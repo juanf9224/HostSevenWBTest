@@ -5,7 +5,7 @@
 
     <TextView android:id="@+id/routines_group"
         android:layout_width="60dip"
-        android:layout_height="wrap_content" android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+        android:layout_height="wrap_content" android:layout_marginLeft="@dimen/activity_horizontal_margin" android:textColor="#29c755"/>
 
     <TextView android:id="@+id/routines_exercises"
         android:layout_width="70dip"
